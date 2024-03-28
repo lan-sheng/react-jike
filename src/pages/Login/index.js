@@ -1,11 +1,14 @@
 import { Card, Form, Input, Button, Checkbox } from 'antd'
 import logo from '@/assets/logo.png'
 import './index.scss'
+import { useDispatch } from 'react-redux'
+import { fetchLogin } from '@/store/modules/user'
 
 const Login = () => {
-const onFormSubmit = (values) => {
-  console.log(values)
-}
+  const dispatch = useDispatch()
+  const onFormSubmit = values => {
+    dispatch(fetchLogin(values))
+  }
 
   return (
     <div className="login">
