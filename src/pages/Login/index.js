@@ -3,12 +3,16 @@ import logo from '@/assets/logo.png'
 import './index.scss'
 
 const Login = () => {
+const onFormSubmit = (values) => {
+  console.log(values)
+}
+
   return (
     <div className="login">
       <Card className="login-container">
         <img className="login-logo" src={logo} alt="" />
         {/* 登录表单 */}
-        <Form validateTrigger={['onBlur', 'onChange']}>
+        <Form validateTrigger={['onBlur', 'onChange']} onFinish={onFormSubmit}>
           <Form.Item
             name="mobile"
             rules={[
