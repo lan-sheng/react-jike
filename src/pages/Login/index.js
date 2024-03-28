@@ -1,13 +1,16 @@
-import { Card, Form, Input, Button, Checkbox } from 'antd'
+import { Card, Form, Input, Button, Checkbox, message } from 'antd'
 import logo from '@/assets/logo.png'
 import './index.scss'
 import { useDispatch } from 'react-redux'
 import { fetchLogin } from '@/store/modules/user'
-
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const dispatch = useDispatch()
-  const onFormSubmit = values => {
-    dispatch(fetchLogin(values))
+  const navigate = useNavigate()
+  const onFormSubmit =async values => {
+   await dispatch(fetchLogin(values))
+    navigate('/')
+    message.success('登录成功')
   }
 
   return (
@@ -19,7 +22,7 @@ const Login = () => {
           <Form.Item
             name="mobile"
             rules={[
-              {
+              { 
                 pattern: /^1[3-9]\d{9}$/,
                 message: '手机号码格式不对',
                 validateTrigger: 'onBlur',
