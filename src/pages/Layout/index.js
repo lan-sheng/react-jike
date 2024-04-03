@@ -1,7 +1,7 @@
 import { Layout, Menu, Popconfirm } from 'antd'
 import { HomeOutlined, DiffOutlined, EditOutlined, LogoutOutlined } from '@ant-design/icons'
 import './index.scss'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 const { Header, Sider } = Layout
 
@@ -25,10 +25,13 @@ const items = [
 
 const GeekLayout = () => {
   const navigate = useNavigate()
-  const onMenuClick = ({ key}) => {
-    console.log('key: ', key);
+  const onMenuClick = ({ key }) => {
+    console.log('key: ', key)
     navigate(key)
   }
+  // 反向高亮 获取当前路由路径
+  const location = useLocation()
+  const { pathname } = location
   return (
     <Layout>
       <Header className="header">
@@ -44,7 +47,7 @@ const GeekLayout = () => {
       </Header>
       <Layout>
         <Sider width={200} className="site-layout-background">
-          <Menu mode="inline" theme="dark" defaultSelectedKeys={['1']} style={{ height: '100%', borderRight: 0 }} items={items} onClick={onMenuClick}></Menu>
+          <Menu mode="inline" theme="dark" selectedKeys={pathname} style={{ height: '100%', borderRight: 0 }} items={items} onClick={onMenuClick}></Menu>
         </Sider>
         <Layout className="layout-content" style={{ padding: 20 }}>
           <Outlet />
