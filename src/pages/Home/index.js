@@ -1,21 +1,23 @@
 import * as echarts from 'echarts'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 const Home = () => {
+  const chartRef = useRef(null)
   useEffect(() => {
-    const chartDom = document.getElementById('main')
+    // const chartDom = document.getElementById('main')
+    const chartDom = chartRef.current
     const myChart = echarts.init(chartDom)
     const option = {
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: ['Vue', 'React', 'Angular'],
       },
       yAxis: {
         type: 'value',
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: [10,20,30],
           type: 'bar',
         },
       ],
@@ -24,7 +26,8 @@ const Home = () => {
   }, [])
   return (
     <div>
-      <div id="main" style={{ with: '200px', height: '200px' }}></div>
+      {/* <div id="main" style={{ with: '200px', height: '200px' }}></div> */}
+      <div ref={chartRef} style={{ with: '200px', height: '200px' }}></div>
     </div>
   )
 }
