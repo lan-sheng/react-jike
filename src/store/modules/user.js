@@ -4,16 +4,21 @@ const userStore = createSlice({
   name: 'user',
   initialState: {
     token: getToken() || '',
+    userInfo: {},
   },
   reducers: {
     setToken(state, { payload }) {
       state.token = payload
       _setToken(payload)
     },
+    setUserInfo(state, { payload }) {
+      state.userInfo = payload
+      _setToken(payload)
+    },
   },
 })
 
-const { setToken } = userStore.actions
+const { setToken, setUserInfo } = userStore.actions
 const userReducer = userStore.reducer
 
 const fetchLogin = loginForm => {
@@ -22,5 +27,13 @@ const fetchLogin = loginForm => {
     dispatch(setToken(data.data.token))
   }
 }
-export { setToken, fetchLogin }
+// 获取用户信息
+const fetchUserInfo = () => {
+  return async dispatch => {
+    // const { data } = await request.get('/user/profile')
+    const data = { data: { name: 'geek', id: 1, birthday: '2020-01-01', gender: 1, mobile: '13800000000', photo: 'http://geek.itheima.net/images/user_head.jpg' } }
+    dispatch(setUserInfo(data.data))
+  }
+}
+export { setToken, fetchLogin, setUserInfo, fetchUserInfo }
 export default userReducer
