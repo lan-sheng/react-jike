@@ -5,20 +5,13 @@ import './index.scss'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { createArticleApi, getChannelApi } from '@/apis/article'
+import { createArticleApi } from '@/apis/article'
+import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
 
 const Publish = () => {
-  const [channelList, setChannelList] = useState([])
-  useEffect(() => {
-    // 获取频道列表
-    const getChannel = async () => {
-      const { data } = await getChannelApi()
-      setChannelList(data.data.channels)
-    }
-    getChannel()
-  }, [])
+  const { channelList } = useChannel()
 
   const onFinish = values => {
     if (imageList.length !== imageType) return message.warning('封面类型和图片数量不匹配')
