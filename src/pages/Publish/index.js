@@ -21,7 +21,6 @@ const Publish = () => {
   }, [])
 
   const onFinish = values => {
-    console.log('Success:', values)
     const { title, content, channel_id } = values
     const reqData = {
       title,
@@ -33,6 +32,11 @@ const Publish = () => {
       },
     }
     createArticleApi(reqData)
+  }
+
+  const [imageList, setImageList] = useState([])
+  const onChange = ({ file, fileList }) => {
+    setImageList(fileList)
   }
   return (
     <div className="publish">
@@ -70,7 +74,7 @@ const Publish = () => {
                 <Radio value={0}>无图</Radio>
               </Radio.Group>
             </Form.Item>
-            <Upload name="image" listType="picture-card" className="avatar-uploader" showUploadList>
+            <Upload name="image" listType="picture-card" className="avatar-uploader" showUploadList action="http://geek.itheima.net/v1_0/upload" onChange={onChange}>
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
               </div>
