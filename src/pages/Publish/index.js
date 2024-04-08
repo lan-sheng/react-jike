@@ -80,7 +80,7 @@ const Publish = () => {
               </Radio.Group>
             </Form.Item>
             {imageType !== 0 && (
-              <Upload name="image" listType="picture-card" className="avatar-uploader" showUploadList action="http://geek.itheima.net/v1_0/upload" onChange={onChange}>
+              <Upload name="image" listType="picture-card" className="avatar-uploader" showUploadList action="http://geek.itheima.net/v1_0/upload" onChange={onChange} maxCount={imageType}>
                 <div style={{ marginTop: 8 }}>
                   <PlusOutlined />
                 </div>
