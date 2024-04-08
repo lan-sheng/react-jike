@@ -1,33 +1,10 @@
-import * as echarts from 'echarts'
-import { useEffect, useRef } from 'react'
+import BarChart from './components/BarChart'
 
 const Home = () => {
-  const chartRef = useRef(null)
-  useEffect(() => {
-    // const chartDom = document.getElementById('main')
-    const chartDom = chartRef.current
-    const myChart = echarts.init(chartDom)
-    const option = {
-      xAxis: {
-        type: 'category',
-        data: ['Vue', 'React', 'Angular'],
-      },
-      yAxis: {
-        type: 'value',
-      },
-      series: [
-        {
-          data: [10,20,30],
-          type: 'bar',
-        },
-      ],
-    }
-    option && myChart.setOption(option)
-  }, [])
   return (
     <div>
-      {/* <div id="main" style={{ with: '200px', height: '200px' }}></div> */}
-      <div ref={chartRef} style={{ with: '200px', height: '200px' }}></div>
+      <BarChart title={'三大框架满意度'} />
+      <BarChart title={'三大框架使用度'} />
     </div>
   )
 }
