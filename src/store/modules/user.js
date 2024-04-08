@@ -14,7 +14,6 @@ const userStore = createSlice({
     },
     setUserInfo(state, { payload }) {
       state.userInfo = payload
-      _setToken(payload)
     },
     clearUserInfo(state) {
       state.token = ''

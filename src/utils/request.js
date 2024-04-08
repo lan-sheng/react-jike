@@ -32,9 +32,9 @@ request.interceptors.response.use((response)=> {
   if (error.response.status===401) {
     // 401: 未登录
     // 重新登录
-    removeToken()
-    router.navigate('login')
-    window.location.reload()
+    // removeToken()
+    // router.navigate('login')
+    // window.location.reload()
   }
     
   
