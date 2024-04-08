@@ -14,3 +14,11 @@ export function createArticleApi(data) {
     data,
   })
 }
+
+export function getArticleListApi(params) {
+  return request({
+    url: `mp/articles`,
+    method: 'GET',
+    params,
+  })
+}
