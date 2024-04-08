@@ -1,4 +1,4 @@
-import { Card, Breadcrumb, Form, Button, Radio, Input, Upload, Space, Select } from 'antd'
+import { Card, Breadcrumb, Form, Button, Radio, Input, Upload, Space, Select, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './index.scss'
@@ -21,21 +21,22 @@ const Publish = () => {
   }, [])
 
   const onFinish = values => {
+    if (imageList.length !== imageType) return message.warning('封面类型和图片数量不匹配')
     const { title, content, channel_id } = values
     const reqData = {
       title,
       content,
       channel_id,
       cover: {
-        type: 0,
-        images: [],
+        type: imageType,
+        images: imageList.map(item => item.response.data.url),
       },
     }
     createArticleApi(reqData)
   }
 
   const [imageList, setImageList] = useState([])
-  const onChange = ({ file, fileList }) => {
+  const onChange = ({ fileList }) => {
     setImageList(fileList)
   }
 
