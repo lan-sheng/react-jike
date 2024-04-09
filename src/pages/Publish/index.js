@@ -51,7 +51,7 @@ const Publish = () => {
       setImageType(type)
       setImageList(images.map(url => ({ url })))
     }
-    getArticle()
+    articleId && getArticle()
   }, [articleId, form])
 
   return (
@@ -62,7 +62,7 @@ const Publish = () => {
             <Breadcrumb.Item>
               <Link to="/home">首页</Link>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>发布文章</Breadcrumb.Item>
+            <Breadcrumb.Item>{articleId ? '编辑' : '发布'}文章</Breadcrumb.Item>
           </Breadcrumb>
         }
       >
