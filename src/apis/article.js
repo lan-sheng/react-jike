@@ -7,6 +7,13 @@ export function getChannelApi() {
   })
 }
 
+export function getArticleById(id) {
+  return request({
+    url: `/mp/articles/${id}`,
+    method: 'GET',
+  })
+}
+
 export function createArticleApi(data) {
   return request({
     url: '/mp/articles?draft=false',

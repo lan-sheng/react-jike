@@ -1,11 +1,11 @@
 import { Card, Breadcrumb, Form, Button, Radio, Input, Upload, Space, Select, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import './index.scss'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { createArticleApi } from '@/apis/article'
+import { createArticleApi, getArticleById } from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
@@ -37,6 +37,19 @@ const Publish = () => {
   const onTypeChange = e => {
     setImageType(e.target.value)
   }
+
+  const [searchParams] = useSearchParams()
+  const articleId = searchParams.get('id')
+  const [form] = Form.useForm()
+
+  useEffect(() => {
+    async function getArticle() {
+      const { data } = await getArticleById(articleId)
+      form.setFieldsValue(data.data)
+    }
+    getArticle()
+  }, [articleId, form])
+
   return (
     <div className="publish">
       <Card
@@ -49,7 +62,7 @@ const Publish = () => {
           </Breadcrumb>
         }
       >
-        <Form labelCol={{ span: 4 }} wrapperCol={{ span: 16 }} initialValues={{ type: 1 }} onFinish={onFinish}>
+        <Form labelCol={{ span: 4 }} wrapperCol={{ span: 16 }} initialValues={{ type: 1 }} onFinish={onFinish} form={form}>
           <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入文章标题' }]}>
             <Input placeholder="请输入文章标题" style={{ width: 400 }} />
           </Form.Item>
