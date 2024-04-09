@@ -75,7 +75,7 @@ const Article = () => {
     begin_pubdate: null,
     end_pubdate: null,
     page: 1,
-    per_page: 100,
+    per_page: 10,
     date: null,
   })
 
@@ -102,6 +102,13 @@ const Article = () => {
       status,
       begin_pubdate: begin_pubdate.format('YYYY-MM-DD'),
       end_pubdate: end_pubdate.format('YYYY-MM-DD'),
+    })
+  }
+
+  const onPageChange = page => {
+    setReqData({
+      ...reqData,
+      page,
     })
   }
   return (
@@ -153,7 +160,7 @@ const Article = () => {
         </Form>
       </Card>
       <Card title={`根据筛选条件共查询到 ${count} 条结果：`}>
-        <Table rowKey="id" columns={columns} dataSource={list} />
+        <Table rowKey="id" columns={columns} dataSource={list} pagination={{ pageSize: reqData.per_page, total: count, onChange: onPageChange }} />
       </Card>
     </div>
   )
