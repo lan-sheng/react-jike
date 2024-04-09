@@ -44,8 +44,12 @@ const Publish = () => {
 
   useEffect(() => {
     async function getArticle() {
-      const { data } = await getArticleById(articleId)
-      form.setFieldsValue(data.data)
+      const res = await getArticleById(articleId)
+      const data = res.data.data
+      const { type, images } = data.cover
+      form.setFieldsValue({ ...data, type })
+      setImageType(type)
+      setImageList(images.map(url => ({ url })))
     }
     getArticle()
   }, [articleId, form])
@@ -87,7 +91,16 @@ const Publish = () => {
               </Radio.Group>
             </Form.Item>
             {imageType !== 0 && (
-              <Upload name="image" listType="picture-card" className="avatar-uploader" showUploadList action="http://geek.itheima.net/v1_0/upload" onChange={onChange} maxCount={imageType}>
+              <Upload
+                name="image"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList
+                action="http://geek.itheima.net/v1_0/upload"
+                onChange={onChange}
+                maxCount={imageType}
+                fileList={imageList}
+              >
                 <div style={{ marginTop: 8 }}>
                   <PlusOutlined />
                 </div>
