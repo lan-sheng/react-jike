@@ -5,7 +5,7 @@ import './index.scss'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { createArticleApi, getArticleById } from '@/apis/article'
+import { createArticleApi, getArticleById, updateArticleApi } from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
@@ -22,10 +22,10 @@ const Publish = () => {
       channel_id,
       cover: {
         type: imageType,
-        images: imageList.map(item => item.response.data.url),
+        images: imageList.map(item => (item.response ? item.response.data.url : item.url)),
       },
     }
-    createArticleApi(reqData)
+    articleId ? updateArticleApi({ ...reqData, id: articleId }) : createArticleApi(reqData)
   }
 
   const [imageList, setImageList] = useState([])

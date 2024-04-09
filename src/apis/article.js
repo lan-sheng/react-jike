@@ -22,6 +22,14 @@ export function createArticleApi(data) {
   })
 }
 
+export function updateArticleApi(data) {
+  return request({
+    url: `/mp/articles/${data.id}?draft=false`,
+    method: 'PUT',
+    data,
+  })
+}
+
 export function getArticleListApi(params) {
   return request({
     url: `mp/articles`,
